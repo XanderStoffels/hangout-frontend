@@ -24,12 +24,12 @@ export async function initHub() {
   if (hub) return;
   hub = new HubConnectionBuilder()
     .configureLogging(LogLevel.Information)
-    .withUrl("http://localhost:5000/visitor")
+    .withUrl("https://api.xanderapp.com/visitor")
     .withHubProtocol(new MessagePackHubProtocol())
     .withAutomaticReconnect()
     .build();
 
-  hub.on("SpawnMouse", (id: string, image: string) => {
+  hub.on("SpawnMouse", (id: string, _: string) => {
     // Create a new mouse img div.
     const mouse = document.createElement("img");
     mouse.id = "mouse-" + id;
@@ -45,7 +45,7 @@ export async function initHub() {
     mouseMap.set(id, mouse);
   });
 
-  hub.on("ChangeMouseImage", (id: string, image: string) => {});
+  hub.on("ChangeMouseImage", (_: string, __: string) => {});
 
   hub.on("MoveMouse", (id: string, x: number, y: number) => {
     const mouse = mouseMap.get(id);
