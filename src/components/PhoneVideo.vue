@@ -2,7 +2,6 @@
     <div class="h-full">
         <img v-if="!loaded" src="../assets/img/static.gif" class="object-cover h-full" />
         <video v-show="loaded" ref="videoPlayer" class="object-cover h-full" :src="url" loop muted></video>
-
     </div>
 </template>
 
@@ -24,7 +23,6 @@ const isSynced = ref(false);
 onMounted(() => {
     if (!videoPlayer.value) return;
     videoPlayer.value.addEventListener('loadeddata', videoLoaded);
-
     changeVideo();
 });
 
@@ -64,18 +62,20 @@ function changeVideo() {
 
 function videoLoaded(_: Event) {
     loaded.value = true;
-    if (videoPlayer.value) {
+    if (!videoPlayer.value) return;
+    if (isOpen.value) {
         unmute();
+    } else {
+        mute();
     }
+    sync();
+    videoPlayer.value.play();
 }
 
 function unmute() {
     if (!videoPlayer.value || !loaded.value) return;
     videoPlayer.value.muted = false;
-    videoPlayer.value.volume = 0.8;
-    if (videoPlayer.value.paused)
-        videoPlayer.value.play();
-
+    videoPlayer.value.volume = 0.5;
 }
 
 function sync() {
@@ -84,11 +84,11 @@ function sync() {
     let progress = (time / 1000) % videoPlayer.value.duration;
     videoPlayer.value.currentTime = progress;
     isSynced.value = true;
-    console.log("Synced video");
 }
 
 function mute() {
     if (!videoPlayer.value || !loaded.value) return;
+    videoPlayer.value.muted = false;
     videoPlayer.value.volume = 0.1;
 }
 

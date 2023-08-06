@@ -48,7 +48,6 @@ function scrollToBottom() {
 <style scoped>
 #terminal {
     font-family: 'VT323', monospace;
-
 }
 
 ::-webkit-scrollbar {
