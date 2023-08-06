@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #020204;
+  color: #edeae0;
+}
+
+/* 
+#020204
+#204829
+#22b455	
+#80ce87
+#92e5a1	
+*/
